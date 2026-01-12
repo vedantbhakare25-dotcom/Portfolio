@@ -1,0 +1,920 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Vedant Bhakare — AI · Builder · Learner</title>
+	<meta name="description" content="Vedant Bhakare — CSE (AI) student, building intelligent systems. Minimal handcrafted portfolio." />
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<style>
+		:root{
+			--bg:#0f1113; /* charcoal */
+			--surface:#131516;
+			--muted:#9aa3ad;
+			--accent:#4dd0e1; /* single accent */
+			--glass: rgba(255,255,255,0.03);
+			--card-shadow: 0 10px 30px rgba(2,6,23,0.6);
+			--radius:14px;
+			color-scheme: dark;
+		}
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0; font-family:Inter,system-ui,Arial; background:linear-gradient(180deg,var(--bg),#0a0b0c 60%); color:#e6eef2; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+			-webkit-tap-highlight-color:transparent;
+		}
+
+		/* Layout */
+		.wrap{min-height:100vh; display:flex; flex-direction:column;}
+		main{flex:1}
+
+		/* Hero */
+		.hero{position:relative; height:100vh; min-height:680px; display:grid; grid-template-columns:1fr 420px; gap:48px; align-items:center; padding:64px 8vw; overflow:hidden}
+
+		.hero-left{max-width:760px; z-index:4}
+		.eyebrow{color:var(--muted); font-weight:600; letter-spacing:0.12em; text-transform:uppercase; font-size:12px}
+		.name{
+			margin:18px 0 12px; font-family:'Playfair Display',serif; font-size:76px; line-height:0.95; letter-spacing:-0.02em; color:#fbfdff; transform-style:preserve-3d;
+			text-shadow: 0 6px 30px rgba(0,0,0,0.6);
+		}
+
+		.subtitle{color:var(--muted); font-size:18px; margin-bottom:26px}
+
+		/* Subtle typewriter cursor (very calm, slow pulse) */
+		.subtitle{display:inline-block; white-space:nowrap}
+		.subtitle::after{content:''; display:inline-block; width:1px; height:1em; margin-left:10px; background:var(--muted); opacity:0.22; vertical-align:middle; border-radius:1px; animation:subtitle-cursor 2.2s ease-in-out infinite}
+		@keyframes subtitle-cursor{0%,100%{opacity:0.22}50%{opacity:0.06}}
+
+		/* ---- 1) System-style single line near subtitle ------------------ */
+		/* Monospace, small, low-opacity helper line that doesn't compete visually. */
+		.hero-meta{
+			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;
+			font-size:12px;
+			color:var(--muted);
+			opacity:.48;
+			margin-top:8px;
+			letter-spacing:0.02em;
+			display:inline-block;
+			white-space:nowrap;
+			line-height:1;
+		}
+
+		/* ---- 2) Subtle scroll cue --------------------------------------- */
+		/* Minimal center-bottom cue; very low opacity and a slow, gentle fade. */
+		.scroll-cue{
+			position:absolute;
+			left:50%;
+			transform:translateX(-50%);
+			bottom:18px;
+			font-size:12px;
+			color:var(--muted);
+			opacity:.30;
+			pointer-events:none;
+			white-space:nowrap;
+			letter-spacing:0.08em;
+			text-transform:lowercase;
+			transition:opacity .3s ease;
+			animation: cue-fade 6s ease-in-out infinite;
+		}
+		@keyframes cue-fade{0%{opacity:.28}50%{opacity:.36}100%{opacity:.28}}
+
+		/* ---- 3) Ambient background motion (VERY subtle) ----------------- */
+		/* Soft radial glows that drift slowly (20s) and remain very low-opacity. */
+		.hero{position:relative}
+		.hero::before{
+			content:"";
+			position:absolute; inset:0; z-index:0; pointer-events:none;
+			background:
+				radial-gradient(circle at 10% 20%, rgba(77,208,225,0.035), transparent 12%),
+				radial-gradient(circle at 80% 80%, rgba(77,208,225,0.03), transparent 14%);
+			mix-blend-mode: screen; opacity:1; filter:blur(6px);
+			transform: translate3d(0,0,0); will-change:transform, opacity;
+			animation: ambient-move 20s ease-in-out infinite;
+		}
+		@keyframes ambient-move{0%{transform:translate3d(-2%,-1%,0)}50%{transform:translate3d(2%,1%,0)}100%{transform:translate3d(-2%,-1%,0)}}
+
+		/* ---- 4) Button hierarchy refinement (visual emphasis only) ---- */
+		.cta .btn:first-of-type{box-shadow:0 28px 80px rgba(77,208,225,0.08); border-color:rgba(77,208,225,0.18)}
+		.cta .btn:first-of-type:hover{transform:translateY(-5px) scale(1.07)}
+		.cta .btn:last-of-type{opacity:.88; border-color:rgba(77,208,225,0.08); box-shadow:none}
+		.cta .btn:last-of-type:hover{transform:translateY(-4px) scale(1.03)}
+		.cta{display:inline-flex; gap:12px; align-items:center}
+		.btn{background:linear-gradient(90deg, rgba(77,208,225,0.12), rgba(77,208,225,0.06)); color:var(--accent); border:1px solid rgba(77,208,225,0.12); padding:12px 16px; border-radius:12px; backdrop-filter:blur(6px); box-shadow:var(--card-shadow); text-decoration:none; display:inline-flex; align-items:center; justify-content:center; transition:transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .36s, border-color .28s}
+		.btn:hover, .btn:focus{transform:translateY(-4px) scale(1.06); box-shadow:0 36px 110px rgba(77,208,225,0.08), 0 8px 36px rgba(2,6,23,0.6); border-color:rgba(77,208,225,0.18);}
+		.btn:active{transform:translateY(-2px) scale(1.03)}
+
+		/* Apply btn-like surface (background, border, blur, shadow) to cards and chips */
+		.skill.reveal-on-scroll, .project.tilt, .card, .chip{
+			background:linear-gradient(90deg, rgba(77,208,225,0.12), rgba(77,208,225,0.06));
+			border:1px solid rgba(77,208,225,0.12);
+			backdrop-filter:blur(6px);
+			box-shadow:var(--card-shadow);
+		}
+
+		/* chips: preserve inline appearance but use btn surface */
+		.chip{display:inline-block; padding:8px 12px; border-radius:10px; text-decoration:none; color:var(--muted)}
+		.chip:hover{color:var(--accent);}
+
+		/* Floating stack on right */
+		.stack{position:relative; height:560px; display:flex; align-items:center; justify-content:center}
+		.layer{position:absolute; width:320px; height:420px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); box-shadow:var(--card-shadow); border:1px solid rgba(255,255,255,0.03); overflow:hidden; display:flex; align-items:flex-end; padding:22px}
+
+		.layer h4{font-family:'Playfair Display',serif; margin:0; font-size:20px}
+		.layer p{color:var(--muted); margin:6px 0 0; font-size:13px}
+
+		/* Neon, separate-card look: opaque surfaces with glow */
+		.layer{background:linear-gradient(180deg, rgba(18,20,22,0.88), rgba(20,22,24,0.82)); border:1px solid rgba(77,208,225,0.06); box-shadow:0 18px 60px rgba(2,6,23,0.6); transition:transform .36s cubic-bezier(.2,.9,.2,1), opacity .36s, filter .36s, box-shadow .36s}
+		.layer h4{font-family:'Playfair Display',serif; margin:0; font-size:20px; color:#f7fbfc}
+		.layer p{color:var(--muted); margin:6px 0 0; font-size:13px}
+		.layer--back{transform:translate3d(-20px,30px,-40px) rotate(-6deg); opacity:0; filter:blur(6px); z-index:1}
+		.layer--mid{transform:translate3d(12px,-10px,-10px) rotate(3deg); opacity:0; filter:blur(4px); z-index:2}
+		.layer--front{transform:translate3d(0,0,0); opacity:1; filter:blur(0px); z-index:3}
+		.layer[data-visible="true"]{opacity:1; filter:blur(0px);}
+		.layer[data-glow="true"]{box-shadow:0 40px 120px rgba(77,208,225,0.12), 0 12px 48px rgba(2,6,23,0.6)}
+
+		/* Apply the same neon/glow lift to other interactive surfaces when active */
+		.skill[data-glow="true"], .project[data-glow="true"], .card[data-glow="true"]{
+			box-shadow:0 40px 120px rgba(77,208,225,0.12), 0 12px 48px rgba(2,6,23,0.6);
+			border-color: rgba(77,208,225,0.12);
+			transform: translateY(-6px);
+		}
+
+		/* Also add a stronger neon glow on hover to match layer behavior */
+		.skill:hover, .project:hover, .card:hover{
+			box-shadow:0 40px 120px rgba(77,208,225,0.12), 0 12px 48px rgba(2,6,23,0.6);
+			border-color:rgba(77,208,225,0.14);
+		}
+
+		/* About */
+		section{padding:72px 8vw}
+		.section-title{display:flex; align-items:center; gap:18px; margin-bottom:28px}
+		.section-title h3{margin:0; font-family:'Playfair Display',serif; font-size:34px; line-height:1; letter-spacing:-0.02em; color:#fbfdff}
+
+		/* Subheading scales for sections and cards */
+		.card h4, .project h4{font-size:20px; margin:0 0 8px; font-family:'Playfair Display',serif}
+		.skill h5{font-size:18px}
+		.section-sub{color:var(--muted); font-size:15px}
+		.about-grid{display:grid; grid-template-columns:1fr 360px; gap:34px; align-items:start}
+		.story{background:var(--surface); border-radius:12px; padding:22px; box-shadow: 0 8px 24px rgba(2,6,23,0.55); border:1px solid rgba(255,255,255,0.02)}
+		.story p{color:var(--muted); margin:0; line-height:1.6}
+
+		/* Smooth, quick hover for story card: scale + neon bloom (Mac-dock feel) */
+		.story.reveal-on-scroll{position:relative; transition:transform .14s cubic-bezier(.22,1,.36,1), box-shadow .18s, border-color .14s; will-change:transform,box-shadow; z-index:1}
+		.story.reveal-on-scroll::after{content:''; position:absolute; inset:8px; border-radius:12px; pointer-events:none; background: radial-gradient(closest-side, rgba(77,208,225,0.12), rgba(77,208,225,0.02) 40%, transparent 60%); opacity:0; filter:blur(20px); transition:opacity .16s cubic-bezier(.22,1,.36,1), transform .16s}
+		.story.reveal-on-scroll:hover::after, .story.reveal-on-scroll:focus::after{opacity:1; transform:scale(1.02)}
+		.story.reveal-on-scroll:hover, .story.reveal-on-scroll:focus{transform:translateY(-6px) scale(1.03); box-shadow:0 44px 140px rgba(77,208,225,0.12), 0 14px 54px rgba(2,6,23,0.6); border-color:rgba(77,208,225,0.14); z-index:9997; outline:none}
+		.story.reveal-on-scroll:active{transform:translateY(-3px) scale(1.01)}
+
+		.timeline{display:flex; flex-direction:column; gap:12px}
+		.chip{background:var(--glass); padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,0.03); color:var(--muted); font-size:13px}
+
+		/* Scroll reveal animations */
+		.reveal-on-scroll{opacity:0; transform:translateY(18px) scale(.98); transition:opacity .72s cubic-bezier(.2,.9,.2,1), transform .72s cubic-bezier(.2,.9,.2,1); will-change:transform,opacity}
+		.reveal-on-scroll.in-view{opacity:1; transform:none}
+
+		/* Skills hover polish (Mac-dock inspired: quick, smooth easing) */
+		.skills .skill{
+			transition:transform .16s cubic-bezier(.22,1,.36,1), box-shadow .22s cubic-bezier(.22,1,.36,1), border-color .18s;
+			transform-origin:center bottom;
+		}
+		.skills .skill:hover{
+			transform:translateZ(22px) scale(1.08);
+			box-shadow:0 36px 110px rgba(2,6,23,0.6), 0 30px 90px rgba(77,208,225,0.08);
+			border-color:rgba(77,208,225,0.14);
+		}
+
+		/* Skills cluster */
+		.skills{display:flex; gap:22px; flex-wrap:wrap}
+		.skill{width:180px; height:140px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:16px; color:#eaf6f8; box-shadow:0 12px 44px rgba(2,6,23,0.55); transform-style:preserve-3d; border:1px solid rgba(255,255,255,0.02)}
+		.skill h5{margin:0; font-size:16px}
+		.skill small{color:var(--muted); font-size:13px}
+		/* Dock-like magnify effect: each skill exposes a --scale variable controlled by JS */
+		.skill{--scale:1; transform:translateZ(0) scale(var(--scale)); transition:transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .45s, filter .45s; transform-origin:center bottom}
+		.skill h5{font-size:calc(16px * var(--scale)); transition:font-size .45s cubic-bezier(.2,.9,.2,1), font-weight .18s}
+		.skill small{opacity:calc(0.9 - (var(--scale) - 1) * 0.6); transition:opacity .28s}
+
+		/* Projects */
+		.projects{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+		/* Accent surface: borrow button coloring for cards */
+		.accent-surface{border:1px solid rgba(77,208,225,0.06); background:linear-gradient(180deg, rgba(77,208,225,0.02), rgba(255,255,255,0.01));}
+		.skill{width:180px; height:140px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:16px; color:#eaf6f8; box-shadow:0 12px 44px rgba(2,6,23,0.55); transform-style:preserve-3d; border:1px solid rgba(255,255,255,0.02)}
+
+		.project{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px; padding:18px; min-height:180px; position:relative; overflow:hidden; border:1px solid rgba(255,255,255,0.02)}
+		.project h4{margin:0 0 8px; transition:opacity .28s cubic-bezier(.2,.9,.2,1), transform .28s}
+		.project .meta{color:var(--muted); font-size:13px; transition:opacity .28s, transform .28s}
+		.project .reveal{position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,12,13,0.82), rgba(10,12,13,0.9)); display:flex; flex-direction:column; justify-content:center; align-items:center; opacity:0; transition:opacity .36s ease; z-index:2}
+		.project:hover .reveal{opacity:1}
+		.project:hover h4, .project:hover .meta{opacity:0; transform:translateY(-8px)}
+
+		/* Project badge (button-like) styling + hover scale/glow */
+		.project .badge{position:absolute; top:12px; right:12px; width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; background:rgba(255,255,255,0.02); color:var(--muted); transition:transform .8s, color .28s, background .28s, box-shadow .28s}
+		.project:hover .badge{background:linear-gradient(90deg, rgba(77,208,225,0.10), rgba(77,208,225,0.04)); color:var(--accent); transform:translateY(-6px) scale(1.08); box-shadow:0 18px 54px rgba(77,208,225,0.06)}
+
+		/* stronger project hover: lift, scale and neon glow */
+		.project:hover{transform:translateY(-6px) scale(1.04); box-shadow:0 40px 120px rgba(77,208,225,0.12), 0 12px 48px rgba(2,6,23,0.6); border-color:rgba(77,208,225,0.16)}
+
+		/* Mac-dock-like quick scale + neon bloom for project tiles */
+		.project.tilt{
+			position:relative;
+			transition:transform .14s cubic-bezier(.22,1,.36,1), box-shadow .18s cubic-bezier(.22,1,.36,1), border-color .14s;
+			transform-origin:center;
+			will-change:transform, box-shadow;
+			z-index:1;
+		}
+		.project.tilt::after{
+			content:'';
+			position:absolute; inset:8px; border-radius:10px; pointer-events:none;
+			background: radial-gradient(closest-side, rgba(77,208,225,0.12), rgba(77,208,225,0.02) 40%, transparent 60%);
+			opacity:0; filter:blur(20px); transition:opacity .16s cubic-bezier(.22,1,.36,1), transform .16s;
+		}
+		.project.tilt:hover::after,
+		.project.tilt:focus::after{
+			opacity:1; transform:scale(1.02);
+		}
+		.project.tilt:hover,
+		.project.tilt:focus{
+			transform:translateY(-8px) scale(1.06);
+			box-shadow:0 44px 140px rgba(77,208,225,0.14), 0 14px 54px rgba(2,6,23,0.6);
+			border-color:rgba(77,208,225,0.20);
+			z-index:9998;
+			outline:none;
+		}
+		.project.tilt:active{transform:translateY(-4px) scale(1.03)}
+
+		/* Accent hover effect for projects and skills */
+		.skill, .project{transition:box-shadow .36s cubic-bezier(.2,.9,.2,1), border-color .36s, transform .36s}
+		.skill:hover, .project:hover{box-shadow:0 30px 90px rgba(2,6,23,0.6), 0 0 40px rgba(77,208,225,0.06); border-color:rgba(77,208,225,0.14);}
+		.skill:focus, .project:focus{outline:2px solid rgba(77,208,225,0.06); outline-offset:6px}
+
+		/* Strong accent variant (used for connect button like look) */
+		.strong-accent{background:linear-gradient(90deg, rgba(77,208,225,0.10), rgba(77,208,225,0.04)); color:var(--accent); border:1px solid rgba(77,208,225,0.12)}
+		.strong-accent:hover{box-shadow:0 36px 110px rgba(77,208,225,0.06), 0 6px 30px rgba(2,6,23,0.6)}
+
+		/* Make skill, project and card surfaces feel like the connect/project buttons */
+		.skill.reveal-on-scroll, .project.tilt, .card{
+			background:linear-gradient(90deg, rgba(77,208,225,0.04), rgba(255,255,255,0.01));
+			border:1px solid rgba(77,208,225,0.08);
+			border-radius:12px;
+			box-shadow:0 14px 48px rgba(2,6,23,0.55);
+			backdrop-filter:blur(6px);
+			transition:box-shadow .36s cubic-bezier(.2,.9,.2,1), border-color .36s, transform .36s;
+		}
+
+		.skill.reveal-on-scroll:hover, .project.tilt:hover, .card:hover{
+			box-shadow:0 36px 110px rgba(77,208,225,0.06), 0 6px 30px rgba(2,6,23,0.6);
+			border-color:rgba(77,208,225,0.16);
+			transform:translateY(-4px);
+		}/* ================================
+   PARENT CONTAINER (CRITICAL FIX)
+   ================================ */
+.skills-grid {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 28px;
+
+	perspective: 1200px;
+	transform-style: preserve-3d;
+
+	/* 🔑 Ensures all children share one stacking context */
+	isolation: isolate;
+}
+
+/* ================================
+   BASE SKILL CARD
+   ================================ */
+.skill.reveal-on-scroll {
+	position: relative;
+	z-index: 1;
+
+	transform-origin: center bottom;
+
+	transition:
+		transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+		box-shadow 420ms cubic-bezier(0.22, 0.61, 0.36, 1),
+		border-color 320ms ease-out;
+
+	will-change: transform, box-shadow;
+}
+
+/* ================================
+   SOFT NEON BLOOM (PSEUDO ELEMENT)
+   ================================ */
+.skill.reveal-on-scroll::after {
+	content: '';
+	position: absolute;
+	inset: -6px;
+	border-radius: 14px;
+	pointer-events: none;
+
+	background: radial-gradient(
+		closest-side,
+		rgba(77, 208, 225, 0.18),
+		rgba(77, 208, 225, 0.06) 40%,
+		transparent 70%
+	);
+
+	opacity: 0;
+	filter: blur(24px);
+
+	transition:
+		opacity 360ms cubic-bezier(0.22, 0.61, 0.36, 1),
+		transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ================================
+   HOVER / FOCUS STATE
+   ================================ */
+.skill.reveal-on-scroll:hover,
+.skill.reveal-on-scroll:focus {
+	z-index: 10; /* clean elevation within isolated context */
+
+	transform:
+		translateY(-10px)
+		translateZ(28px)
+		scale(calc(var(--scale, 1) * 1.12));
+
+	box-shadow:
+		0 40px 120px rgba(77, 208, 225, 0.12),
+		0 18px 60px rgba(2, 6, 23, 0.55);
+
+	border-color: rgba(77, 208, 225, 0.22);
+	outline: none;
+}
+
+/* Glow appears slightly after motion (macOS-like) */
+.skill.reveal-on-scroll:hover::after,
+.skill.reveal-on-scroll:focus::after {
+	opacity: 1;
+	transform: scale(1.04);
+}
+
+/* ================================
+   ACTIVE (CLICK) STATE
+   ================================ */
+.skill.reveal-on-scroll:active {
+	transform:
+		translateY(-6px)
+		translateZ(18px)
+		scale(calc(var(--scale, 1) * 1.06));
+
+	transition-duration: 180ms;
+}
+
+
+
+		/* Education / Contact */
+		.row{display:flex; gap:20px; align-items:stretch}
+		.card{flex:1; background:var(--surface); padding:18px; border-radius:12px; box-shadow:var(--card-shadow); border:1px solid rgba(255,255,255,0.02)}
+
+		footer{padding:48px 8vw; color:var(--muted); display:flex; justify-content:space-between; align-items:center}
+
+		/* Micro interactions */
+		.tilt{transform:perspective(900px); transition:transform 300ms cubic-bezier(.2,.9,.2,1)}
+
+		/* Parallax helper */
+		[data-parallax]{will-change:transform}
+
+		/* Responsive */
+		@media (max-width:1000px){
+			.hero{grid-template-columns:1fr; min-height:760px; padding:48px}
+			.stack{order:3; height:420px}
+			.about-grid{grid-template-columns:1fr}
+			.projects{grid-template-columns:repeat(2,1fr)}
+			.section-title h3{font-size:30px}
+			.card h4, .project h4{font-size:18px}
+			.skill h5{font-size:16px}
+		}
+		@media (max-width:640px){
+			.name{font-size:44px}
+			.hero{padding:28px}
+			.projects{grid-template-columns:1fr}
+			.skill{width:48%;}
+			.section-title h3{font-size:26px}
+			.card h4, .project h4{font-size:16px}
+			.skill h5{font-size:15px}
+		}
+	</style>
+
+</head>
+<body>
+	<div class="wrap">
+		<main>
+			<header class="hero" id="hero">
+				<div class="hero-left">
+					<div class="eyebrow">Ready to Work</div>
+					<h1 class="name" id="nameLayer">Vedant Bhakare</h1>
+					<div class="subtitle">CSE (AI) Student • Builder • Learner</div>
+					<div class="hero-meta" aria-hidden="true">currently exploring world of Artificial Intelligence</div>
+					<div style="max-width:680px;">
+						<p style="color:var(--muted); margin:0 0 20px; font-size:16px">Curious about building intelligent systems, I combine engineering fundamentals with hands-on experimentation in machine learning, web development, and modern tools to solve real problems. This portfolio reflects my focus on clarity, depth, and thoughtful presentation.</p>
+						<div class="cta">
+							<a class="btn" href="#projects">Explore Projects</a>
+							<a class="btn" href="#contact">Connect</a>
+						</div>
+					</div>
+				</div>
+
+				<aside class="stack" aria-hidden="true">
+        <div class="layer layer--back tilt" data-depth="-18">
+          <div>
+            <h4>Thinking</h4>
+            <p>Logic · Problem breakdown · Curiosity</p>
+          </div>
+        </div>
+        <div class="layer layer--mid tilt" data-depth="-8">
+          <div>
+            <h4>Building</h4>
+            <p>Code · Experiments · Iteration</p>
+          </div>
+        </div>
+        <div class="layer layer--front tilt" data-depth="6">
+          <div>
+            <h4>Learning</h4>
+            <p>Feedback · Debugging · Improvement</p>
+          </div>
+        </div>
+      </aside>
+
+			<div class="scroll-cue" aria-hidden="true">scroll to explore</div>
+
+			</header>
+
+			<section id="about">
+				<div class="section-title">
+					<h3>About</h3>
+				</div>
+				<div class="about-grid">
+					<div class="story reveal-on-scroll" data-delay="0.06">
+						<p>I enjoy developing web interfaces, training machine learning models, and working with a wide range of tools and frameworks. I focus on turning ideas into real systems—experimenting with data, improving models, and building reliable end-to-end solutions through continuous iteration.</div>
+					<div class="reveal-on-scroll" data-delay="0.12">
+						<div class="timeline">
+							<div class="chip">Second-year B.Tech — CSE (AI) at VIT Pune</div>
+							<div class="chip">Interests:Artificial Intelligence, Machine Learning, Web Development, Generative AI </div>
+							<div class="chip">Tools: Python · JS · React · MySQL · MongoDB · Firebase</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="skills">
+				<div class="section-title"><h3>Skills & Stack</h3></div>
+				<div class="skills" style="padding:0 8vw 40px;" data-parallax="0.04">
+					<div class="skill reveal-on-scroll" data-delay="0.06">
+						<div class="icon" aria-hidden="true">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18v16H3z"></path><path d="M7 8h10M7 12h10M7 16h6"></path></svg>
+						</div>
+						<h2>Frontend</h2>
+						<small>HTML · CSS · JavaScript · React</small>
+					</div>
+
+					<div class="skill reveal-on-scroll" data-delay="0.12">
+						<div class="icon" aria-hidden="true">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="10" rx="2"></rect><path d="M7 7v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"></path></svg>
+						</div>
+						<h2>Backend</h2>
+						<small>Python · REST APIs · Firebase</small>
+					</div>
+
+					<div class="skill reveal-on-scroll" data-delay="0.18">
+						<div class="icon" aria-hidden="true">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"></ellipse><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"></path><path d="M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path></svg>
+						</div>
+						<h2>Databases</h2>
+						<small>MySQL · MongoDB</small>
+					</div>
+
+					<div class="skill reveal-on-scroll" data-delay="0.24">
+						<div class="icon" aria-hidden="true">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+						</div>
+						<h2>Languages</h2>
+						<small>C · C++ · Java · Python</small>
+					</div>
+
+					<div class="skill reveal-on-scroll" data-delay="0.30">
+						<div class="icon" aria-hidden="true">
+							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="M20.2 7.8l-2.8 2.8"></path><path d="M22 12h-4"></path><path d="M20.2 16.2l-2.8-2.8"></path><path d="M12 22v-4"></path><path d="M3.8 16.2l2.8-2.8"></path><path d="M2 12h4"></path><path d="M3.8 7.8l2.8 2.8"></path></svg>
+						</div>
+						<h2>AI</h2>
+						<small>Machine Learning · Prototyping · Model Evaluation</small>
+
+					</div>
+				</div>
+			</section>
+
+			<section id="projects">
+				<div class="section-title"><h3>Selected Projects</h3></div>
+				<div style="padding:0 8vw 40px;">
+					<div class="projects">
+            <article class="project tilt">
+              <span class="badge" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2l4 4-4 4-4-4 4-4z"></path>
+                  <path d="M4 10v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"></path>
+                </svg>
+              </span>
+              <h4>Automated Irrigation System</h4>
+              <div class="meta">Embedded Systems · Sensors · Control Logic</div>
+              <div class="reveal">
+                <strong>Problem</strong>
+                <p style="max-width:280px; color:var(--muted)">
+                  Reduce water wastage and manual effort by automating irrigation based on real-time soil water detection.
+                </p>
+                <small style="color:var(--muted)">
+                  Impact: Ensured efficient water usage with automatic pump and valve control using digital sensors.
+                </small>
+              </div>
+            </article>
+						<article class="project tilt">
+            <span class="badge" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 7h18M8 21V7"></path>
+                <path d="M16 21V7"></path>
+              </svg>
+            </span>
+            <h4>Personalized Expense </h4>
+            <h4>Tracker & To-Do Manager</h4>
+            <div class="meta">Web App · JavaScript · Database</div>
+            <div class="reveal">
+              <strong>Problem</strong>
+              <p style="max-width:280px; color:var(--muted)">
+                Help users manage daily expenses and tasks in one place with personalized tracking and reminders.
+              </p>
+              <small style="color:var(--muted)">
+                Impact: Improved budgeting discipline and productivity through a unified, easy-to-use system.
+              </small>
+            </div>
+          </article>
+
+
+						<article class="project tilt"> 
+            <span class="badge" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H9l-4 4V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </span>
+            <h4>Computer Vision </h4>
+            <h4>Mini Projects</h4>
+            <div class="meta">Python · OpenCV · Machine Learning</div>
+            <div class="reveal">
+              <strong>Problem</strong>
+              <p style="max-width:280px; color:var(--muted)">
+                Explore human–computer interaction using vision-based models like shape detection, gesture-driven quizzes, and auto scrolling.
+              </p>
+              <small style="color:var(--muted)">
+                Impact: Built hands-on ML prototypes improving interaction without traditional input devices.
+              </small>
+            </div>
+          </article>
+          <article class="project tilt">
+	<span class="badge" aria-hidden="true">
+		<!-- Tractor / tools inspired icon -->
+		<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+			stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+			<circle cx="7" cy="17" r="3"></circle>
+			<circle cx="17" cy="17" r="2"></circle>
+			<path d="M7 14h10l3-5h-6l-2-4H8z"></path>
+		</svg>
+	</span>
+
+	<h4>Farm Equipment Rental Platform</h4>
+	<div class="meta">System Design · Web · Database</div>
+
+	<div class="reveal">
+		<strong>Problem</strong>
+		<p style="max-width:280px; color:var(--muted)">
+			Small farmers struggle to afford costly equipment that remains underutilized.
+		</p>
+		<small style="color:var(--muted)">
+			Impact: Designed a shared rental system connecting equipment owners and farmers to reduce cost and improve access.
+		</small>
+	</div>
+</article>
+<article class="project tilt">
+	<span class="badge" aria-hidden="true">
+		<!-- AI / assistant icon -->
+		<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+			stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+			<circle cx="12" cy="7" r="4"></circle>
+			<path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
+			<path d="M9 7h.01M15 7h.01"></path>
+		</svg>
+	</span>
+
+	<h4>AI Receptionist System</h4>
+	<div class="meta">AI · NLP · Automation</div>
+
+	<div class="reveal">
+		<strong>Problem</strong>
+		<p style="max-width:280px; color:var(--muted)">
+			Businesses need a scalable way to handle customer queries without manual intervention.
+		</p>
+		<small style="color:var(--muted)">
+			Impact: Conceptualized an AI-powered receptionist to automate responses, appointments, and basic customer support.
+		</small>
+	</div>
+</article>
+
+					</div>
+				</div>
+			</section>
+
+			<section id="education" style="padding-top:12px;">
+				<div class="section-title"><h3>Education</h3></div>
+				<div style="padding:0 8vw 40px;">
+					<div class="row">
+						<div class="card">
+							<a href="https://vit.edu" style="color: inherit; text-decoration: none;">
+                <h4>Vishwakarma Institute of Technology, Pune</h4>
+              </a>
+
+							<p style="color:var(--muted); margin:6px 0 0">B.Tech — Computer Science & Engineering (Artificial Intelligence) — Second year</p>
+            </div>
+						<div class="card">
+							<h4>Academic Focus</h4>
+							<p style="color:var(--muted); margin:6px 0 0">Machine Learning · Data Structures · Algorithms · Web Development</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="contact">
+				<div class="section-title"><h3>Contact & Connect</h3></div>
+				<div style="padding:0 8vw 80px; display:flex; gap:18px;">
+					<div class="card">
+						<h4>Say hello</h4>
+						<p style="color:var(--muted); margin:8px 0">I prefer brief, thoughtful messages about collaboration, internships or technical conversations.</p>
+						<div style="margin-top:12px; display:flex; flex-direction:column; gap:8px">
+							<a class="chip" href="mailto:vedantbhakare000@gmail.com">Personal Email</a>
+							<a class="chip" href="mailto:vedant.bhakare25@vit.edu">College Email</a>
+						</div>
+					</div>
+
+					<div class="card">
+						<h4>Profiles</h4>
+						<div style="margin-top:12px; display:flex; flex-direction:column; gap:8px">
+							<a class="chip" href="https://github.com/vedantbhakare25-dotcom" target="_blank" rel="noopener">GitHub — vedantbhakare25-dotcom</a>
+							<a class="chip" href="https://in.linkedin.com/in/vedant-bhakare-44a37828b" target="_blank" rel="noopener">LinkedIn — Vedant Bhakare</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			<div>© Vedant Bhakare </div>
+			<div style="display:flex; gap:18px; align-items:center">
+				<div style="color:var(--muted)">VIT Pune</div>
+				<a href="#hero" class="chip">Back to top</a>
+			</div>
+		</footer>
+	</div>
+
+	<script>
+	// Typewriter for `.subtitle` — calm, slow, and layout-stable
+	(function(){
+		const el = document.querySelector('.subtitle');
+		if(!el) return; // nothing to do if element missing
+
+		const phrases = ['CSE (AI) Student', 'Builder', 'Learner'];
+		const TYPING = 80; // ms per char (slightly faster)
+		const DELETING = 40; // ms per char (slightly faster than typing)
+		const PAUSE = 700; // shorter pause when fully typed
+		let idx = 0, char = 0, deleting = false, timer = null, stopped = false;
+
+		// Prevent layout shift by measuring widest phrase and reserving space
+		(function reserveWidth(){
+			const style = getComputedStyle(el);
+			const meas = document.createElement('span');
+			meas.style.position = 'absolute'; meas.style.visibility = 'hidden'; meas.style.whiteSpace = 'nowrap';
+			meas.style.font = style.font; meas.style.fontSize = style.fontSize; meas.style.fontFamily = style.fontFamily;
+			document.body.appendChild(meas);
+			let max = 0;
+			for(const p of phrases){ meas.textContent = p; max = Math.max(max, meas.getBoundingClientRect().width); }
+			document.body.removeChild(meas);
+			el.style.minWidth = Math.ceil(max) + 'px';
+		})();
+
+		// Controlled tick using timeouts (no setInterval)
+		function tick(){
+			if(stopped) return;
+			const text = phrases[idx];
+			if(!deleting){
+				char++;
+				el.textContent = text.slice(0,char);
+				if(char >= text.length){
+					// fully typed — pause, then start deleting
+					timer = setTimeout(()=>{ deleting = true; tick(); }, PAUSE);
+					return;
+				}
+				timer = setTimeout(tick, TYPING + Math.random()*30);
+			} else {
+				char--;
+				el.textContent = text.slice(0,char);
+				if(char <= 0){
+					// move to next phrase
+					deleting = false; idx = (idx + 1) % phrases.length;
+					timer = setTimeout(tick, 220);
+					return;
+				}
+				timer = setTimeout(tick, DELETING + Math.random()*20);
+			}
+		}
+
+		// start slightly delayed for calm entrance
+		timer = setTimeout(tick, 420);
+
+		// clean up if element removed from DOM
+		const mo = new MutationObserver(()=>{ if(!document.body.contains(el)){ stopped=true; clearTimeout(timer); mo.disconnect(); } });
+		mo.observe(document.body, { childList:true, subtree:true });
+	})();
+		// Subtle parallax on hero layers and tilt interactions
+		(function(){
+			const hero = document.getElementById('hero');
+			const layers = Array.from(document.querySelectorAll('.layer'));
+
+			let mouse = {x:0,y:0};
+			function onMove(e){
+				const r = hero.getBoundingClientRect();
+				const cx = r.left + r.width/2;
+				const cy = r.top + r.height/2;
+				mouse.x = (e.clientX - cx)/r.width;
+				mouse.y = (e.clientY - cy)/r.height;
+			}
+			hero.addEventListener('mousemove', onMove);
+
+			function raf(){
+				layers.forEach((el,i)=>{
+					const depth = parseFloat(el.dataset.depth||0);
+					const tx = mouse.x * depth * 18;
+					const ty = mouse.y * depth * 12;
+					// base transform from depth + small rotation offset
+					el.style.transform = `translate3d(${tx}px, ${ty}px, 0) rotate(${(i-1)*3}deg)`;
+				});
+
+				// reveal behind layers based on cursor movement magnitude
+				const visibilityFactor = Math.min(1, Math.abs(mouse.x)*2.2 + Math.abs(mouse.y)*1.6);
+				layers.forEach((el,i)=>{
+					if(i === layers.length - 1){
+						// front
+						el.dataset.visible = true;
+						el.dataset.glow = visibilityFactor > 0.02;
+					}else if(i === 1){
+						// mid
+						el.dataset.visible = visibilityFactor > 0.08;
+						el.dataset.glow = visibilityFactor > 0.35;
+					}else{
+						// back
+						el.dataset.visible = visibilityFactor > 0.28;
+						el.dataset.glow = visibilityFactor > 0.55;
+					}
+					// subtle z-offset change so reappearing cards slide up into view
+					const baseTrans = el.style.transform;
+					if(el.dataset.visible === 'true'){
+						// slightly lift visible cards
+						el.style.transform = baseTrans + ' translateY(-6px)';
+					}
+				});
+				requestAnimationFrame(raf);
+			}
+			raf();
+
+			// Reduce motion for users who prefer it
+			const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+			if(mq.matches){
+				layers.forEach(el=>el.style.transition='none');
+				hero.removeEventListener('mousemove', onMove);
+			}
+		})();
+
+		// Scroll reveal using IntersectionObserver (fade + translate + scale)
+		(function(){
+			const reveal = (entries, obs) => {
+				entries.forEach(entry => {
+					if(entry.isIntersecting){
+						const el = entry.target;
+						const delay = parseFloat(el.dataset.delay) || 0;
+						el.style.transitionDelay = delay + 's';
+						el.classList.add('in-view');
+						obs.unobserve(el);
+					}
+				});
+			};
+			const io = new IntersectionObserver(reveal, {threshold: 0.12});
+			document.querySelectorAll('.reveal-on-scroll').forEach(el => io.observe(el));
+		})();
+
+		// Dock-like magnify for skills (mouse distance based)
+		(function(){
+			const container = document.querySelector('.skills');
+			if(!container) return;
+			const items = Array.from(container.querySelectorAll('.skill'));
+			const maxGrow = 0.6; // base maximum extra scale (60%)
+			const hoverBoost = 1.8; // when cursor is very close multiply growth
+			const maxDistance = 220; // pixels from center where effect fades
+
+			// ensure keyboard focusable
+			items.forEach(it => { it.setAttribute('tabindex','0'); it.style.setProperty('--scale', '1'); });
+
+			function onMove(e){
+				const rect = container.getBoundingClientRect();
+				const mouseX = e.clientX;
+				items.forEach(it => {
+					const r = it.getBoundingClientRect();
+					const cx = r.left + r.width/2;
+					const dist = Math.abs(mouseX - cx);
+					const t = Math.max(0, Math.min(1, 1 - dist / maxDistance));
+					// ease the t slightly
+					const eased = Math.pow(t, 0.9);
+					let scale = 1 + maxGrow * eased;
+					// if cursor is very close to the item, apply a larger hover boost
+					if(dist < r.width * 0.55){
+						scale = 1 + maxGrow * hoverBoost * eased;
+					}
+					// clamp to a reasonable maximum
+					scale = Math.min(scale, 2.2);
+					it.style.setProperty('--scale', scale.toFixed(3));
+					it.style.fontWeight = (scale > 1.06) ? '700' : '600';
+				});
+			}
+
+			function reset(){
+				items.forEach(it => { it.style.setProperty('--scale','1'); it.style.fontWeight='600'; });
+			}
+
+			container.addEventListener('mousemove', onMove);
+			container.addEventListener('mouseleave', reset);
+			container.addEventListener('touchstart', reset);
+
+			// keyboard navigation: on focus, enlarge focused item
+			items.forEach(it => {
+				it.addEventListener('focus', () => {
+					items.forEach(other => other.style.setProperty('--scale','1'));
+					it.style.setProperty('--scale', '1.18');
+					it.style.fontWeight = '700';
+				});
+				it.addEventListener('blur', () => { it.style.setProperty('--scale','1'); it.style.fontWeight='600'; });
+			});
+		})();
+
+		// Smooth scroll (inertia-like) for internal anchors
+		(function(){
+			const links = Array.from(document.querySelectorAll('a[href^="#"]'));
+			const ease = t => (--t)*t*t+1; // easeOutCubic
+
+			function smoothScrollTo(targetY, duration=700){
+				const start = window.scrollY || window.pageYOffset;
+				const delta = targetY - start;
+				const startTime = performance.now();
+				return new Promise(resolve => {
+					function tick(now){
+						const elapsed = now - startTime;
+						const t = Math.min(1, elapsed / duration);
+						const eased = ease(t);
+						window.scrollTo(0, Math.round(start + delta * eased));
+						if(t < 1) requestAnimationFrame(tick);
+						else resolve();
+					}
+					requestAnimationFrame(tick);
+				});
+			}
+
+			links.forEach(a => {
+				const href = a.getAttribute('href');
+				if(!href || href === '#') return;
+				a.addEventListener('click', e => {
+					const path = href.split('#')[1];
+					if(!path) return;
+					const target = document.getElementById(path);
+					if(!target) return;
+					e.preventDefault();
+					const targetY = target.getBoundingClientRect().top + window.scrollY - 28; // slight offset
+					smoothScrollTo(targetY, Math.min(1100, Math.abs(window.scrollY - targetY) * 0.6));
+				});
+			});
+		})();
+
+		// Scroll-driven parallax for elements with data-parallax
+		(function(){
+			const items = Array.from(document.querySelectorAll('[data-parallax]'));
+			if(!items.length) return;
+			function update(){
+				const scrollY = window.scrollY || window.pageYOffset;
+				items.forEach(el => {
+					const speed = parseFloat(el.dataset.parallax) || 0.03;
+					const offset = el.getBoundingClientRect().top + scrollY;
+					const relative = (scrollY - offset) * speed;
+					el.style.transform = `translate3d(0, ${Math.round(relative)}px, 0)`;
+				});
+			}
+			let ticking = false;
+			window.addEventListener('scroll', () => { if(!ticking){ requestAnimationFrame(()=>{ update(); ticking=false; }); ticking=true; } });
+			update();
+		})();
+	</script>
+</body>
+</html>
