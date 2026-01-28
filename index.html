@@ -482,6 +482,66 @@
 			footer { padding: 28px 3.5vw; }
 		}
 
+		/* Contact section responsiveness */
+		#contact .section-title {
+			margin-bottom: 32px;
+		}
+
+		#contact > div:last-child {
+			padding: 0 8vw 80px;
+			display: flex;
+			gap: 18px;
+		}
+
+		@media (max-width: 1024px) {
+			#contact > div:last-child {
+				padding: 0 6vw 60px;
+				gap: 16px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			#contact > div:last-child {
+				flex-direction: column;
+				padding: 0 4vw 48px;
+				gap: 14px;
+			}
+
+			#contact .card {
+				padding: 16px;
+			}
+
+			#contact .card h4 {
+				font-size: 18px;
+				margin-bottom: 10px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			#contact > div:last-child {
+				padding: 0 3.5vw 36px;
+				gap: 12px;
+			}
+
+			#contact .card {
+				padding: 14px;
+			}
+
+			#contact .card h4 {
+				font-size: 16px;
+			}
+
+			#contact .card p {
+				font-size: 14px;
+				line-height: 1.5;
+			}
+
+			#contact .chip {
+				padding: 8px 10px;
+				font-size: 13px;
+			}
+		}
+
 		/* Micro interactions */
 		.tilt{transform:perspective(900px); transition:transform 300ms cubic-bezier(.2,.9,.2,1)}
 
@@ -529,6 +589,113 @@
 		@media (max-height: 600px) and (orientation: landscape) {
 			.hero { min-height: auto; height: auto; padding: 24px 4vw; gap: 24px; }
 			.stack { height: 280px; }
+		}
+
+		/* ---- PORTFOLIO IMAGE STYLING ---- */
+		.hero-image {
+			position: relative;
+			width: 240px;
+			height: 280px;
+			border-radius: 18px;
+			overflow: hidden;
+			background: linear-gradient(135deg, rgba(77,208,225,0.08), rgba(77,208,225,0.04));
+			border: 1px solid rgba(77,208,225,0.12);
+			box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+			z-index: 5;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			animation: float-gentle 6s ease-in-out infinite;
+			will-change: transform;
+			margin-top: 32px;
+			margin-bottom: 28px;
+		}
+
+		.hero-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		/* Neon glow effect on image */
+		.hero-image::before {
+			content: '';
+			position: absolute;
+			inset: -8px;
+			border-radius: 18px;
+			background: radial-gradient(circle at 30% 30%, rgba(77,208,225,0.25), rgba(77,208,225,0.08) 40%, transparent 70%);
+			opacity: 0.7;
+			filter: blur(28px);
+			transition: opacity 0.36s cubic-bezier(.22,1,.36,1);
+			pointer-events: none;
+			z-index: -1;
+		}
+
+		.hero-image:hover::before,
+		.hero-image:focus-within::before {
+			opacity: 1;
+		}
+
+		/* Hover lift and scale */
+		.hero-image:hover,
+		.hero-image:focus-within {
+			transform: translateY(-12px) scale(1.04);
+			box-shadow: 0 40px 100px rgba(77,208,225,0.16), 0 20px 60px rgba(2,6,23,0.6);
+			border-color: rgba(77,208,225,0.20);
+		}
+
+		.hero-image {
+			transition: transform 0.24s cubic-bezier(.22,1,.36,1), box-shadow 0.28s, border-color 0.28s;
+		}
+
+		/* Gentle floating animation */
+		@keyframes float-gentle {
+			0%, 100% { transform: translateY(0px); }
+			50% { transform: translateY(-8px); }
+		}
+
+		/* Responsive image sizing */
+		@media (max-width: 1200px) {
+			.hero-image {
+				width: 220px;
+				height: 260px;
+				margin-top: 28px;
+				margin-bottom: 24px;
+			}
+		}
+
+		@media (max-width: 1024px) {
+			.hero-image {
+				width: 100%;
+				max-width: 260px;
+				height: 300px;
+				margin: 28px auto 26px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.hero-image {
+				width: 100%;
+				max-width: 240px;
+				height: 280px;
+				margin: 24px auto 22px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.hero-image {
+				width: 100%;
+				max-width: 200px;
+				height: 240px;
+				border-radius: 14px;
+				margin: 20px auto 18px;
+			}
+
+			.hero-image::before {
+				border-radius: 14px;
+				filter: blur(20px);
+			}
 		}
 
 		/* Ultra-small screens (below 400px width) */
@@ -803,10 +970,16 @@
 					<h1 class="name" id="nameLayer">Vedant Bhakare</h1>
 					<div class="subtitle">CSE (AI) Student • Builder • Learner</div>
 					<div class="hero-meta" aria-hidden="true">currently exploring world of Artificial Intelligence</div>
+
+					<div class="hero-image">
+						<img src="portfolioimg.png" alt="Vedant Bhakare" loading="lazy">
+					</div>
+
 					<div style="max-width:680px;">
 						<p style="color:var(--muted); margin:0 0 20px; font-size:16px">Curious about building intelligent systems, I combine engineering fundamentals with hands-on experimentation in machine learning, web development, and modern tools to solve real problems. This portfolio reflects my focus on clarity, depth, and thoughtful presentation.</p>
 						<div class="cta">
 							<a class="btn" href="#projects">Explore Projects</a>
+							<a class="btn" href="#" download>View Resume</a>
 							<a class="btn" href="#contact">Connect</a>
 						</div>
 					</div>
@@ -1023,11 +1196,21 @@
 					<div class="row">
 						<div class="card">
 							<a href="https://vit.edu" style="color: inherit; text-decoration: none;">
-                <h4>Vishwakarma Institute of Technology, Pune</h4>
-              </a>
-
+                				<h4>Vishwakarma Institute of Technology, Pune</h4>
+              				</a>
 							<p style="color:var(--muted); margin:6px 0 0">B.Tech — Computer Science & Engineering (Artificial Intelligence) — Second year</p>
-            </div>
+            			</div>
+						<div class="card">
+							<a href="https://vit.edu" style="color: inherit; text-decoration: none;">
+                				<h4>Sanjivani KBP Polytechnic, Kopargaon</h4>
+              				</a>
+							<p style="color:var(--muted); margin:6px 0 0">Diploma in Computer Technology</p>
+            			</div>
+						<div class="card">
+							<a href="https://vit.edu" style="color: inherit; text-decoration: none;">
+                				<h4>Atma Malik International School(CBSE), Kokamthan</h4>
+              				</a>
+						</div>
 						<div class="card">
 							<h4>Academic Focus</h4>
 							<p style="color:var(--muted); margin:6px 0 0">Machine Learning · Data Structures · Algorithms · Web Development</p>
